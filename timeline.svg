@@ -1,0 +1,70 @@
+<svg version="1.1" viewbox="0 0 521 435.4" x="0" xmlns=
+    "http://www.w3.org/2000/svg" y="0">
+    <g>
+        <path class="stat-path" d=
+        "M432.5 2.5 432.5 149.5 143.5 149.5 143.5 432.9 2.5 432.9" fill="none"
+        id="path1" stroke="#242E42" stroke-linecap="square" stroke-miterlimit=
+        "10" stroke-width="5" style=
+        "stroke-dasharray: 860.400024414063px; stroke-dashoffset: 0px;"></path>
+        <path class="stat-path" d=
+        "M432.5 2.5 285.5 2.5 285.5 291.5 2.5 291.5 2.5 432.9" fill="none" id=
+        "path2" stroke="#242E42" stroke-linecap="square" stroke-miterlimit="10"
+        stroke-width="5" style=
+        "stroke-dasharray: 860.400024414063px; stroke-dashoffset: 0px;"></path>
+    </g>
+    <g>
+        <rect fill="#FFFFFF" height="70" width="114" x="407" y="41"></rect>
+        <g class="stat1">
+            <text transform="matrix(1 0 0 1 428 68.7542)">
+                <tspan fill="#346086" font-family="DINNextLTPro-Medium" font-size="18" x="0" y="0">
+                    TRACKS
+                </tspan>
+                <tspan fill="#346086" font-family="DINNextLTPro-Medium"
+                font-size="18" x="0" y="23">
+                    CREATED
+                </tspan>
+            </text>
+            <text fill="#24B4FB" font-family="DINNextLTPro-Medium"
+            font-size="42" transform="matrix(1 0 0 1 310.7864 87.5979)">
+                100K
+            </text>
+        </g>
+    </g>
+    <g>
+        <rect fill="#FFFFFF" height="70" width="121" x="266" y="183"></rect>
+        <g class="stat2">
+            <text transform="matrix(1 0 0 1 281 215.1812)">
+                <tspan fill="#346086" font-family="DINNextLTPro-Medium"
+                font-size="18" x="0" y="0">
+                    COUNTRIES
+                </tspan>
+                <tspan fill="#346086" font-family="DINNextLTPro-Medium"
+                font-size="18" x="0" y="23">
+                    CREATED IN
+                </tspan>
+            </text>
+            <text fill="#24B4FB" font-family="DINNextLTPro-Medium"
+            font-size="42" transform="matrix(1 0 0 1 191.7021 234.0249)">
+                85
+            </text>
+        </g>
+    </g>
+    <g>
+        <rect fill="#FFFFFF" height="70" width="123" x="123" y="328"></rect>
+        <g class="stat3">
+            <text transform="matrix(1 0 0 1 139 354.4)">
+                <tspan fill="#346086" font-family="DINNextLTPro-Medium"
+                font-size="18" x="0" y="0">
+                    VIEWS
+                </tspan>
+                <tspan fill="#346086" font-family="DINNextLTPro-Medium"
+                font-size="18" x="0" y="23">
+                    ON YOUTUBE
+                </tspan>
+            </text>
+            <text fill="#24B4FB" font-family="DINNextLTPro-Medium"
+            font-size="42" transform="matrix(1 0 0 1 32.4521 375.8258)">
+                16M
+            </text>
+        </g>
+    </g></svg>

@@ -141,6 +141,12 @@ a:focus,
   outline: none;
 }
 
+a.white-link:hover,
+a.white-link:focus,
+a.white-link:active{
+    color: rgba(255,255,255,0.7);
+}
+
 /*----------------------
 ---Main Color Styles----
 ------------------------*/
@@ -562,8 +568,11 @@ header.jumbotron{
 }
 
 #about img {
-    box-shadow:12px 0px 0px 12px rgba(255,255,255,0.2),
-                -12px 0px 0px 12px rgba(255,255,255,0.2);
+    margin: 50px 0px;
+}
+
+.white{
+    color: #fff;
 }
 
 /*-----------------------
@@ -1465,6 +1474,32 @@ header.jumbotron{
 	transform:translateY(0px);
 }
 
+/*----------------------
+common styles
+----------------------*/
+.margin-right-1x{
+    margin-right: 5px;
+}
+
+.margin-all-1x{
+    margin: 5px;
+}
+.margin-2x{
+    margin: 10px;
+}
+.margin-v-2x{
+    margin:10px 0px;
+}
+.margin-top-5x{
+    margin-top: 25px;
+}
+.margin-v-5x{
+    margin: 25px 0px;
+}
+.margin-bottom-5x{
+    margin-bottom: 25px;
+}
+
 /*-----------------------
 ------Media Queries------
 ------------------------*/
@@ -1620,6 +1655,14 @@ p {
     font-size:28px;
     line-height:36px;
 }
+
+#about h2 {
+    font-size: 24px;
+    line-height: 28px;
+    
+}
+
+
 
 #about p {
     font-size:21px;

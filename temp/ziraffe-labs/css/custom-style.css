@@ -349,8 +349,28 @@ a.pink:focus{
 		max-width: 100%;
 		overflow-x: hidden;
 	}
+	.bottom-bordered{
+		border-bottom: 1px solid #333;
+	}
+	.mobile-margin-top-50{
+		margin-top: 50px;
+	}
+	.mobile-margin-bottom-50{
+		margin-bottom: 50px;
+	}
 }
 @media (max-width:320px){
+	.bottom-bordered{
+		margin-bottom: 25px;
+		padding-bottom: 50px;
+		border-bottom: 1px solid #333;
+	}
+	.mobile-margin-bottom-50{
+		margin-bottom: 50px;
+	}
+	.mobile-margin-top-50{
+		margin-top: 50px;
+	}
 	body{
 		max-width: 100%;
 		overflow-x: hidden;

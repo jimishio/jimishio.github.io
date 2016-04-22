@@ -1,0 +1,82 @@
+{
+   "swagger":"2.0",
+   "info":{
+      "title":"Oizom API",
+      "version":"0.1.0"
+   },
+   "basePath":"/",
+   "paths":{
+      "/all/public/devices":{
+         "get":{
+            "summary":"Device and Data",
+            "description":"All public devices and their current data and trips",
+            "tags":[
+               "Public API"
+            ],
+            "consumes":[
+               "application/json",
+               "application/x-form-www-urlencoded"
+            ],
+            "produces":[
+               "application/json"
+            ],
+            "responses":{
+               "200":{
+                  "description":"ok"
+               },
+               "default":{
+                  "description":"default"
+               }
+            }
+         }
+      },
+      "/all/public/data/{deviceId}":{
+         "get":{
+            "summary":"Get device data",
+            "description":"Get device last 24 data points or in time range",
+            "tags":[
+               "Public API"
+            ],
+            "consumes":[
+               "application/json",
+               "application/x-form-www-urlencoded"
+            ],
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"deviceId",
+                  "in":"path",
+                  "description":"deviceId",
+                  "required":true,
+                  "type":"string"
+               },
+               {
+                  "name":"lte",
+                  "in":"formData",
+                  "description":"Less than time",
+                  "required":false,
+                  "type":"string"
+               },
+               {
+                  "name":"gte",
+                  "in":"formData",
+                  "description":"Greater than time",
+                  "required":false,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"ok"
+               },
+               "default":{
+                  "description":"default"
+               }
+            }
+         }
+      }
+   }
+}
+

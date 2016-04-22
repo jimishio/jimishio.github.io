@@ -4,7 +4,7 @@
       "title":"Oizom API",
       "version":"0.1.0"
    },
-   "basePath":"/",
+   "basePath":"http://tub.oizom.com",
    "paths":{
       "/all/public/devices":{  
          "get":{  

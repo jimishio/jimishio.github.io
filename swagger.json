@@ -4,7 +4,7 @@
       "title":"Oizom API",
       "version":"0.1.0"
    },
-   "host":"tub.oizom.com",
+   "host":"api.airpollution.online",
    "basePath":"/",
    "paths":{
       "all/public/devices":{  

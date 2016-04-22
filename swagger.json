@@ -1,7 +1,7 @@
 {  
    "swagger":"2.0",
    "info":{  
-      "title":"Oizom API",
+      "title":"Air Pollution API",
       "version":"0.1.0"
    },
    "host":"api.airpollution.online",

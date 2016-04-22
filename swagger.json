@@ -7,7 +7,7 @@
    "host":"tub.oizom.com",
    "basePath":"/",
    "paths":{
-      "/all/public/devices":{  
+      "all/public/devices":{  
          "get":{  
             "summary":"Device and Data",
             "description":"All public devices and their current data",
@@ -77,7 +77,7 @@
             }
          }
       },
-      "/all/public/data/{deviceId}":{  
+      "all/public/data/{deviceId}":{  
          "get":{  
             "summary":"Get device data",
             "description":"Get device hourly data for 24 hours or in time range",
@@ -124,7 +124,7 @@
             }
          }
       },
-      "/all/public/full/{deviceId}":{  
+      "all/public/full/{deviceId}":{  
          "get":{  
             "summary":"Get full data",
             "description":"Get all data for time range or last 24 hours",
@@ -173,7 +173,7 @@
             }
          }
       },
-      "/all/public/aqi/{deviceId}":{  
+      "all/public/aqi/{deviceId}":{  
          "get":{  
             "summary":"aqi by device name",
             "description":"Get AQI by device ID",
@@ -208,7 +208,7 @@
             }
          }
       },
-      "/all/public/aqi":{  
+      "all/public/aqi":{  
          "post":{  
             "summary":"AQI of all devices",
             "description":"Get AQI of all devices",
@@ -251,7 +251,7 @@
             }
          }
       },
-      "/all/public/aqi/all/aqi":{  
+      "all/public/aqi/all/aqi":{  
          "get":{  
             "summary":"Aqi of all devices",
             "description":"Current AQI of all devices",
@@ -277,7 +277,7 @@
             }
          }
       },
-      "/all/public/{deviceId}":{  
+      "all/public/{deviceId}":{  
          "get":{  
             "summary":"Device current data",
             "description":"Device current data",

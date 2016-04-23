@@ -7,6 +7,39 @@
    "host":"api.airpollution.online",
    "basePath":"/",
    "paths":{
+      "/fields":{
+         "get":{
+            "summary":"Get fields",
+            "description":"Get all fields or type specific field",
+            "tags":[
+               "Fields API"
+            ],
+            "consumes":[
+               "application/json",
+               "application/x-form-www-urlencoded"
+            ],
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"type",
+                  "in":"query",
+                  "description":"Device Type",
+                  "required":false,
+                  "type":"string"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"ok"
+               },
+               "default":{
+                  "description":"default response"
+               }
+            }
+         }
+      },
       "all/public/devices":{  
          "get":{  
             "summary":"Device and Data",
@@ -124,55 +157,6 @@
             }
          }
       },
-      "all/public/full/{deviceId}":{  
-         "get":{  
-            "summary":"Get full data",
-            "description":"Get all data for time range or last 24 hours",
-            "tags":[  
-               "Public API"
-            ],
-            "consumes":[  
-               "application/json",
-               "application/x-form-www-urlencoded"
-            ],
-            "produces":[  
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"deviceId",
-                  "in":"path",
-                  "description":"deviceId",
-                  "required":true,
-                  "type":"string"
-               },
-               {  
-                  "name":"lte",
-                  "in":"formData",
-                  "description":"Less than time",
-                  "required":false,
-                  "type":"string"
-               },
-               {  
-                  "name":"gte",
-                  "in":"formData",
-                  "description":"Greater than time",
-                  "required":false,
-                  "type":"string"
-               }
-            ],
-            "responses":{  
-               "200":{  
-                  "description":"ok",
-                  "code":"200"
-               },
-               "default":{  
-                  "description":"default",
-                  "code":"default"
-               }
-            }
-         }
-      },
       "all/public/aqi/{deviceId}":{  
          "get":{  
             "summary":"aqi by device name",
@@ -195,75 +179,6 @@
                   "required":true,
                   "type":"string"
                }
-            ],
-            "responses":{  
-               "200":{  
-                  "description":"ok",
-                  "code":"200"
-               },
-               "default":{  
-                  "description":"default",
-                  "code":"default"
-               }
-            }
-         }
-      },
-      "all/public/aqi":{  
-         "post":{  
-            "summary":"AQI of all devices",
-            "description":"Get AQI of all devices",
-            "tags":[  
-               "Public API"
-            ],
-            "consumes":[  
-               "application/json"
-            ],
-            "produces":[  
-               "application/json"
-            ],
-            "parameters":[  
-               {  
-                  "name":"devices list",
-                  "in":"body",
-                  "description":"Devices array",
-                  "required":false,
-                  "schema":{  
-                     "type":"object",
-                     "properties":{  
-                        "devices":{  
-                           "type":"array",
-                           "items":{  
-                              "type":"string",
-                              "format":"\"Device_ID\""
-                           }
-                        }
-                     }
-                  }
-               }
-            ],
-            "responses":{  
-               "200":{  
-                  "description":"ok"
-               },
-               "default":{  
-                  "description":"default"
-               }
-            }
-         }
-      },
-      "all/public/aqi/all/aqi":{  
-         "get":{  
-            "summary":"Aqi of all devices",
-            "description":"Current AQI of all devices",
-            "tags":[  
-               "Public API"
-            ],
-            "consumes":[  
-               "application/json",
-               "application/x-form-www-urlencoded"
-            ],
-            "produces":[  
-               "application/json"
             ],
             "responses":{  
                "200":{  

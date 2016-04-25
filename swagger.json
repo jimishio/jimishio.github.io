@@ -7,7 +7,7 @@
    "host":"api.airpollution.online",
    "basePath":"/",
    "paths":{
-      "/fields":{
+      "fields":{
          "get":{
             "summary":"Get fields",
             "description":"Get all fields or type specific field",

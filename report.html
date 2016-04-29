@@ -1,3 +1,4 @@
+
 <!--
 	Go to :-
 	report.html?userId=57204fe3e595aa1d0004e170&deviceId=OZ_POLLUDRON_006&lte=1461868200&gte=1461781800&type=IODA
@@ -156,8 +157,13 @@
 				var url = "http://tub.oizom.com/" + userId + "/report/aqi/daily/" + deviceId + "?" + window.location.href.split('?')[1];
 				var xmlhttp = new XMLHttpRequest();
 
-				xmlhttp.onreadystatechange = function() {
-				    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				//xmlhttp.onreadystatechange = function() {
+				    
+				//};
+				xmlhttp.open("GET", url, false);
+				xmlhttp.send();
+					//if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						console.log(xmlhttp.responseText);
 
 				    	var json = JSON.parse(xmlhttp.responseText);
 				    	var device = json[0][0];
@@ -249,10 +255,7 @@
 						$(window).on('resizeEnd', function() {
 						    drawBasic(dat);
 						});
-				    }
-				};
-				xmlhttp.open("GET", url, true);
-				xmlhttp.send();
+				    //}
 			}
 		</script>
 	</BODY>

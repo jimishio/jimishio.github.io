@@ -10,7 +10,7 @@
       "fields":{
          "get":{
             "summary":"Get fields",
-            "description":"Get all fields or type specific field",
+            "description":"An open standard for the pollutant parameters has been defined. You can access the format for the incoming API or take the API to use the standard formats for showcasing your air-quality data.",
             "tags":[
                "Fields API"
             ],
@@ -43,7 +43,7 @@
       "all/public/devices":{  
          "get":{  
             "summary":"Device and Data",
-            "description":"All public devices and their current data",
+            "description":"This API offers access to the current data sent by all the devices setup in Delhi. The user can access the data of all the specific locations being covered in Delhi and their current air-quality standards.",
             "tags":[  
                "Public API"
             ],
@@ -65,7 +65,7 @@
          },
          "post":{  
             "summary":"Current data of devices",
-            "description":"Get current data of all devices",
+            "description":"This API provides access to the current air-quality data for each specific device. The device id has to be entered and the data for each specific device will be shared.",
             "tags":[  
                "Public API"
             ],
@@ -113,7 +113,7 @@
       "all/public/data/{deviceId}":{  
          "get":{  
             "summary":"Get device data",
-            "description":"Get device hourly data for 24 hours or in time range",
+            "description":"This API provides access to the data on hourly basis for 24 hours or between a specified time-range for all or specific devices. The device id has to be entered and the specific data for each device within a defined time-frame will be shared.",
             "tags":[  
                "Public API"
             ],
@@ -160,7 +160,7 @@
       "all/public/aqi/{deviceId}":{  
          "get":{  
             "summary":"aqi by device name",
-            "description":"Get AQI by device ID",
+            "description":"This API offers access to the Air-Quality Index(AQI) for each specific device.  The device id has to be entered and the AQI for the respective device is accessible.",
             "tags":[  
                "Public API"
             ],
@@ -195,7 +195,7 @@
       "all/public/{deviceId}":{  
          "get":{  
             "summary":"Device current data",
-            "description":"Device current data",
+            "description":"This API offers access to all the current data about air-quality for each specific device. The device id has to be entered and on basis of which the current data of the specific location is accessible.",
             "tags":[  
                "Public API"
             ],

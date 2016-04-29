@@ -1,0 +1,251 @@
+<!--
+	Go to :-
+	report.html?userId=57204fe3e595aa1d0004e170&deviceId=OZ_POLLUDRON_006&lte=1461868200&gte=1461781800&type=IODA
+-->
+
+<HTML>
+	<HEAD>
+		<TITLE>Report</TITLE>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script>
+		    $(document).bind('mobileinit',function(){
+		        $.mobile.changePage.defaults.changeHash = false;
+		        $.mobile.hashListeningEnabled = false;
+		        $.mobile.pushStateEnabled = false;
+		    });
+		</script> 
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript">
+			function getParameterByName(name, url) {
+			    if (!url) url = window.location.href;
+			    name = name.replace(/[\[\]]/g, "\\$&");
+			    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+			        results = regex.exec(url);
+			    if (!results) return null;
+			    if (!results[2]) return '';
+			    return decodeURIComponent(results[2].replace(/\+/g, " "));
+			}
+		</script>
+		<style type="text/css">
+			@media all {
+				.page-break	{ display: none; }
+			}
+
+			@media print {
+				.page-break	{ display: block; page-break-before: always; }
+			}
+
+			td{
+				font-size: 12px;
+			}
+		</style>
+	</HEAD>
+	<BODY bgcolor="#ffffff">
+		<div data-role="page" id="p1" style="background:#ffffff; width=2480; height=3508">
+			<div data-role="header" data-theme="c"	 data-position="fixed">
+				<header>
+					<h1 style="font-size:25px; text-align:left; margin-left:10px;">Daily Air Pollution Report</h1>
+					<p style="font-size:12px; text-align:left; margin-left:10px;">Report Created on <span id="time">21st April, 8:00 am</span></p>
+				</header>
+			</div>
+			<div data-role="main" class="ui-content">
+				<div class="page-break"></div>
+				<table width="100%">
+					<tr>
+						<td style="text-align:left;">Time from: <b id="t_from">00:00, 21st March</b></td>
+						<td style="text-align:right;">Time to: <b id="t_to">23:59, 21st March</b></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;">Device Location: <b id="d_loc">Paldi, Ahmedabad</b></td>
+						<td style="text-align:right;">Device Name: <b id="d_name">Paldi POLLUDRON</b></td>
+					</tr>
+					<tr>
+						<td style="text-align:left;" colspan="2">Gases: <b id="fields">PM 2.5, PM 10, CO2, NO2, CO, Temperature, Humidity</b></td>
+					</tr>
+				</table>
+				
+				<br/>
+				<br/>
+				<div class="page-break"></div>
+
+				<table id="table_data" width="100%" border="1" style="table-layout:fixed; text-align:center;" cellspacing="0">
+					<thead>
+						<tr>
+							<th></td>
+							<th><b>AQI</b></th>
+							<th><b>CO<sub>2</sub></b></th>
+							<th><b>CO</b></th>
+							<th><b>NO<sub>2</sub></b></th>
+							<th><b>NH<sub>3</sub></b></th>
+							<th><b>PM2.5</b></th>
+							<th><b>PM10</b></th>
+							<th><b>Hum</b></th>
+							<th><b>Temp</b></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Avg</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+						</tr>
+						<tr>
+							<td>Min</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+						</tr>
+						<tr>
+							<td>Max</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+							<td>152</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="page-break"></div>
+
+				<div id="chart" style="margin-left:20px;margin-right:20px;"></div>
+
+			</div>
+			<div data-role="footer" data-theme="c" data-position="fixed">
+				<h1 style="text-align:right; margin-right:10px;">Report Created by <b>Oizom</b></h1>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var userId = getParameterByName('userId');
+			var deviceId = getParameterByName('deviceId');
+			var lte = getParameterByName('lte');
+			var gte = getParameterByName('gte');
+			var type = getParameterByName('type');
+			if ( ! (userId && deviceId && lte && gte && type) ){
+				console.log("invalid parameters!");
+			} else {
+				var url = "http://tub.oizom.com/" + userId + "/report/aqi/daily/" + deviceId + "?" + window.location.href.split('?')[1];
+				var xmlhttp = new XMLHttpRequest();
+
+				xmlhttp.onreadystatechange = function() {
+				    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+				    	var json = JSON.parse(xmlhttp.responseText);
+				    	var device = json[0][0];
+						var fds = json[1];
+				        var data = json[2][0];
+						var myArr = json[3];
+
+						var cur_datetime = new Date();
+						document.getElementById('time').innerHTML = cur_datetime.toString();
+
+						var d_f = new Date(0);
+						d_f.setUTCSeconds(gte);
+						document.getElementById('t_from').innerHTML = d_f.toString();
+						var d_t = new Date(0);
+						d_t.setUTCSeconds(lte-1);
+						document.getElementById('t_to').innerHTML = d_t.toString();
+
+						document.getElementById('d_loc').innerHTML = device['loc'];
+						document.getElementById('d_name').innerHTML = device['label'];
+
+						var f = "";
+						for(var i=0;i<fds.length;i++){
+							f += fds[i]['label'] + ", ";
+						}
+						f+="-";
+						document.getElementById('fields').innerHTML = f;
+
+
+
+				        var d = [];
+				        for(var k in data){
+				        	if (k == "_id")
+				        		continue;
+				        	d.push(Math.round(data[k] * 1e2) / 1e2);
+				        }
+
+				        var k = 0;
+						var table = document.getElementById("table_data");
+						for(var i=1, row;row = table.rows[i];i++){
+							for(var j=1, col;col = row.cells[j];j++){
+								col.innerHTML = d[k];
+								k++;
+							}
+						}
+
+						var options = {
+							hAxis: {
+								title: 'Time',
+								format: 'HH:SS',
+								gridlines: { count: 12 }
+							},
+							vAxis: {
+								title: 'AQI'
+							},
+							legend: {position: 'none'}
+						};
+
+
+				        google.charts.load('current', {packages: ['corechart', 'line']});
+						google.charts.setOnLoadCallback(drawBasic);
+
+						function drawBasic() {
+
+							var data = new google.visualization.DataTable();
+							data.addColumn('datetime', 'X');
+							data.addColumn('number', 'AQI');
+
+							dat = [];
+
+					        for(var i=0;i<myArr.length;i++){
+					        	var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+								d.setUTCSeconds(myArr[i].payload.d.t);
+					        	dat.push([d, myArr[i].aqi]);
+					        }
+
+							var chart = new google.visualization.LineChart(document.getElementById('chart'));							
+
+							data.addRows(dat);
+							chart.draw(data, options);
+						}
+						$(window).resize(function() {
+						    if(this.resizeTO) clearTimeout(this.resizeTO);
+						    this.resizeTO = setTimeout(function() {
+						        $(this).trigger('resizeEnd');
+						    }, 500);
+						});
+
+						//redraw graph when window resize is completed  
+						$(window).on('resizeEnd', function() {
+						    drawBasic(dat);
+						});
+				    }
+				};
+				xmlhttp.open("GET", url, true);
+				xmlhttp.send();
+			}
+		</script>
+	</BODY>
+</HTML>

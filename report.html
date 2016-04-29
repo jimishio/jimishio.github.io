@@ -30,12 +30,20 @@
 			}
 		</script>
 		<style type="text/css">
+			#chart {
+				margin-left: auto !important;
+				margin-right: auto !important;
+			}
 			@media all {
 				.page-break	{ display: none; }
 			}
 
 			@media print {
 				.page-break	{ display: block; page-break-before: always; }
+				#chart {
+					margin-left: 10px !important;
+					margin-right: auto !important;
+				}
 			}
 
 			td{
@@ -128,7 +136,7 @@
 
 				<div class="page-break"></div>
 
-				<div id="chart" style="margin-left:10px;margin-right:auto !important;max-width:70%"></div>
+				<div id="chart" style="max-width:70%"></div>
 
 			</div>
 			<div data-role="footer" data-theme="c" data-position="fixed">

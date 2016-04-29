@@ -154,6 +154,15 @@
 			if ( ! (userId && deviceId && lte && gte && type) ){
 				console.log("invalid parameters!");
 			} else {
+				var cur_datetime = new Date();
+				document.getElementById('time').innerHTML = cur_datetime.toString();
+
+				var d_f = new Date(0);
+				d_f.setUTCSeconds(gte);
+				document.getElementById('t_from').innerHTML = d_f.toString();
+				var d_t = new Date(0);
+				d_t.setUTCSeconds(lte-1);
+				document.getElementById('t_to').innerHTML = d_t.toString();
 				var url = "http://tub.oizom.com/" + userId + "/report/aqi/daily/" + deviceId + "?" + window.location.href.split('?')[1];
 				var xmlhttp = new XMLHttpRequest();
 
@@ -171,15 +180,7 @@
 				        var data = json[2][0];
 						var myArr = json[3];
 
-						var cur_datetime = new Date();
-						document.getElementById('time').innerHTML = cur_datetime.toString();
-
-						var d_f = new Date(0);
-						d_f.setUTCSeconds(gte);
-						document.getElementById('t_from').innerHTML = d_f.toString();
-						var d_t = new Date(0);
-						d_t.setUTCSeconds(lte-1);
-						document.getElementById('t_to').innerHTML = d_t.toString();
+						
 
 						document.getElementById('d_loc').innerHTML = device['loc'];
 						document.getElementById('d_name').innerHTML = device['label'];

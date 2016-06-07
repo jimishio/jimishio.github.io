@@ -1,0 +1,2611 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: api_aggregations; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE api_aggregations (
+    id integer NOT NULL,
+    key character varying(100) NOT NULL,
+    value integer NOT NULL,
+    modified timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE api_aggregations OWNER TO postgres;
+
+--
+-- Name: api_aggregations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE api_aggregations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE api_aggregations_id_seq OWNER TO postgres;
+
+--
+-- Name: api_aggregations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE api_aggregations_id_seq OWNED BY api_aggregations.id;
+
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_group (
+    id integer NOT NULL,
+    name character varying(80) NOT NULL
+);
+
+
+ALTER TABLE auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_group_id_seq OWNED BY auth_group.id;
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_group_permissions (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_group_permissions_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_group_permissions_id_seq OWNED BY auth_group_permissions.id;
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE auth_permission (
+    id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE auth_permission_id_seq OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE auth_permission_id_seq OWNED BY auth_permission.id;
+
+
+--
+-- Name: authtoken_token; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE authtoken_token (
+    key character varying(40) NOT NULL,
+    created timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE authtoken_token OWNER TO postgres;
+
+--
+-- Name: celery_taskmeta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE celery_taskmeta (
+    id integer NOT NULL,
+    task_id character varying(255) NOT NULL,
+    status character varying(50) NOT NULL,
+    result text,
+    date_done timestamp with time zone NOT NULL,
+    traceback text,
+    hidden boolean NOT NULL,
+    meta text
+);
+
+
+ALTER TABLE celery_taskmeta OWNER TO postgres;
+
+--
+-- Name: celery_taskmeta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE celery_taskmeta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE celery_taskmeta_id_seq OWNER TO postgres;
+
+--
+-- Name: celery_taskmeta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE celery_taskmeta_id_seq OWNED BY celery_taskmeta.id;
+
+
+--
+-- Name: celery_tasksetmeta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE celery_tasksetmeta (
+    id integer NOT NULL,
+    taskset_id character varying(255) NOT NULL,
+    result text NOT NULL,
+    date_done timestamp with time zone NOT NULL,
+    hidden boolean NOT NULL
+);
+
+
+ALTER TABLE celery_tasksetmeta OWNER TO postgres;
+
+--
+-- Name: celery_tasksetmeta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE celery_tasksetmeta_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE celery_tasksetmeta_id_seq OWNER TO postgres;
+
+--
+-- Name: celery_tasksetmeta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE celery_tasksetmeta_id_seq OWNED BY celery_tasksetmeta.id;
+
+
+--
+-- Name: dailytable; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE dailytable (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    rotations integer NOT NULL,
+    calories integer NOT NULL,
+    distance double precision NOT NULL,
+    date date NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    week integer
+);
+
+
+ALTER TABLE dailytable OWNER TO postgres;
+
+--
+-- Name: dailytable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE dailytable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE dailytable_id_seq OWNER TO postgres;
+
+--
+-- Name: dailytable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE dailytable_id_seq OWNED BY dailytable.id;
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_admin_log_id_seq OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_admin_log_id_seq OWNED BY django_admin_log.id;
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_content_type (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_content_type_id_seq OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_content_type_id_seq OWNED BY django_content_type.id;
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_migrations (
+    id integer NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE django_migrations_id_seq OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE django_migrations_id_seq OWNED BY django_migrations.id;
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE django_session OWNER TO postgres;
+
+--
+-- Name: djcelery_crontabschedule; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE djcelery_crontabschedule (
+    id integer NOT NULL,
+    minute character varying(64) NOT NULL,
+    hour character varying(64) NOT NULL,
+    day_of_week character varying(64) NOT NULL,
+    day_of_month character varying(64) NOT NULL,
+    month_of_year character varying(64) NOT NULL
+);
+
+
+ALTER TABLE djcelery_crontabschedule OWNER TO postgres;
+
+--
+-- Name: djcelery_crontabschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE djcelery_crontabschedule_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_crontabschedule_id_seq OWNER TO postgres;
+
+--
+-- Name: djcelery_crontabschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE djcelery_crontabschedule_id_seq OWNED BY djcelery_crontabschedule.id;
+
+
+--
+-- Name: djcelery_intervalschedule; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE djcelery_intervalschedule (
+    id integer NOT NULL,
+    every integer NOT NULL,
+    period character varying(24) NOT NULL
+);
+
+
+ALTER TABLE djcelery_intervalschedule OWNER TO postgres;
+
+--
+-- Name: djcelery_intervalschedule_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE djcelery_intervalschedule_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_intervalschedule_id_seq OWNER TO postgres;
+
+--
+-- Name: djcelery_intervalschedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE djcelery_intervalschedule_id_seq OWNED BY djcelery_intervalschedule.id;
+
+
+--
+-- Name: djcelery_periodictask; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE djcelery_periodictask (
+    id integer NOT NULL,
+    name character varying(200) NOT NULL,
+    task character varying(200) NOT NULL,
+    interval_id integer,
+    crontab_id integer,
+    args text NOT NULL,
+    kwargs text NOT NULL,
+    queue character varying(200),
+    exchange character varying(200),
+    routing_key character varying(200),
+    expires timestamp with time zone,
+    enabled boolean NOT NULL,
+    last_run_at timestamp with time zone,
+    total_run_count integer NOT NULL,
+    date_changed timestamp with time zone NOT NULL,
+    description text NOT NULL,
+    CONSTRAINT djcelery_periodictask_total_run_count_check CHECK ((total_run_count >= 0))
+);
+
+
+ALTER TABLE djcelery_periodictask OWNER TO postgres;
+
+--
+-- Name: djcelery_periodictask_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE djcelery_periodictask_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_periodictask_id_seq OWNER TO postgres;
+
+--
+-- Name: djcelery_periodictask_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE djcelery_periodictask_id_seq OWNED BY djcelery_periodictask.id;
+
+
+--
+-- Name: djcelery_periodictasks; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE djcelery_periodictasks (
+    ident smallint NOT NULL,
+    last_update timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE djcelery_periodictasks OWNER TO postgres;
+
+--
+-- Name: djcelery_taskstate; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE djcelery_taskstate (
+    id integer NOT NULL,
+    state character varying(64) NOT NULL,
+    task_id character varying(36) NOT NULL,
+    name character varying(200),
+    tstamp timestamp with time zone NOT NULL,
+    args text,
+    kwargs text,
+    eta timestamp with time zone,
+    expires timestamp with time zone,
+    result text,
+    traceback text,
+    runtime double precision,
+    retries integer NOT NULL,
+    worker_id integer,
+    hidden boolean NOT NULL
+);
+
+
+ALTER TABLE djcelery_taskstate OWNER TO postgres;
+
+--
+-- Name: djcelery_taskstate_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE djcelery_taskstate_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_taskstate_id_seq OWNER TO postgres;
+
+--
+-- Name: djcelery_taskstate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE djcelery_taskstate_id_seq OWNED BY djcelery_taskstate.id;
+
+
+--
+-- Name: djcelery_workerstate; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE djcelery_workerstate (
+    id integer NOT NULL,
+    hostname character varying(255) NOT NULL,
+    last_heartbeat timestamp with time zone
+);
+
+
+ALTER TABLE djcelery_workerstate OWNER TO postgres;
+
+--
+-- Name: djcelery_workerstate_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE djcelery_workerstate_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE djcelery_workerstate_id_seq OWNER TO postgres;
+
+--
+-- Name: djcelery_workerstate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE djcelery_workerstate_id_seq OWNED BY djcelery_workerstate.id;
+
+
+--
+-- Name: goal; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE goal (
+    id integer NOT NULL,
+    date date NOT NULL,
+    value double precision NOT NULL,
+    week integer,
+    modified timestamp with time zone,
+    goal_type_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE goal OWNER TO postgres;
+
+--
+-- Name: goal_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE goal_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE goal_id_seq OWNER TO postgres;
+
+--
+-- Name: goal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE goal_id_seq OWNED BY goal.id;
+
+
+--
+-- Name: goal_progress; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE goal_progress (
+    id integer NOT NULL,
+    date date NOT NULL,
+    value double precision NOT NULL,
+    accomplished boolean NOT NULL,
+    modified timestamp with time zone,
+    goal_id integer NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE goal_progress OWNER TO postgres;
+
+--
+-- Name: goal_progress_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE goal_progress_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE goal_progress_id_seq OWNER TO postgres;
+
+--
+-- Name: goal_progress_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE goal_progress_id_seq OWNED BY goal_progress.id;
+
+
+--
+-- Name: goal_type; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE goal_type (
+    id integer NOT NULL,
+    goal_type character varying(100) NOT NULL
+);
+
+
+ALTER TABLE goal_type OWNER TO postgres;
+
+--
+-- Name: goal_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE goal_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE goal_type_id_seq OWNER TO postgres;
+
+--
+-- Name: goal_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE goal_type_id_seq OWNED BY goal_type.id;
+
+
+--
+-- Name: group_members; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE group_members (
+    id integer NOT NULL,
+    status character varying(20) NOT NULL,
+    role character varying(20) NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    group_id integer NOT NULL,
+    user_id integer NOT NULL,
+    joined date,
+    "left" date
+);
+
+
+ALTER TABLE group_members OWNER TO postgres;
+
+--
+-- Name: group_members_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE group_members_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE group_members_id_seq OWNER TO postgres;
+
+--
+-- Name: group_members_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE group_members_id_seq OWNED BY group_members.id;
+
+
+--
+-- Name: groups; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE groups (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    display_name character varying(255) NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    is_deleted boolean NOT NULL,
+    admin_id integer NOT NULL
+);
+
+
+ALTER TABLE groups OWNER TO postgres;
+
+--
+-- Name: groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE groups_id_seq OWNER TO postgres;
+
+--
+-- Name: groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE groups_id_seq OWNED BY groups.id;
+
+
+--
+-- Name: hourlytable; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE hourlytable (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    rotations integer NOT NULL,
+    calories integer NOT NULL,
+    distance double precision NOT NULL,
+    date timestamp with time zone NOT NULL,
+    year integer NOT NULL,
+    month integer NOT NULL,
+    day integer NOT NULL,
+    hour integer NOT NULL,
+    full_hour integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    week integer
+);
+
+
+ALTER TABLE hourlytable OWNER TO postgres;
+
+--
+-- Name: hourlytable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE hourlytable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE hourlytable_id_seq OWNER TO postgres;
+
+--
+-- Name: hourlytable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE hourlytable_id_seq OWNED BY hourlytable.id;
+
+
+--
+-- Name: monthlytable; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE monthlytable (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    rotations integer NOT NULL,
+    calories integer NOT NULL,
+    distance double precision NOT NULL,
+    year integer NOT NULL,
+    month integer NOT NULL,
+    year_month integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE monthlytable OWNER TO postgres;
+
+--
+-- Name: monthlytable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE monthlytable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE monthlytable_id_seq OWNER TO postgres;
+
+--
+-- Name: monthlytable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE monthlytable_id_seq OWNED BY monthlytable.id;
+
+
+--
+-- Name: push_notifications_apnsdevice; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE push_notifications_apnsdevice (
+    id integer NOT NULL,
+    name character varying(255),
+    active boolean NOT NULL,
+    date_created timestamp with time zone,
+    device_id uuid,
+    registration_id character varying(64) NOT NULL,
+    user_id integer
+);
+
+
+ALTER TABLE push_notifications_apnsdevice OWNER TO postgres;
+
+--
+-- Name: push_notifications_apnsdevice_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE push_notifications_apnsdevice_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE push_notifications_apnsdevice_id_seq OWNER TO postgres;
+
+--
+-- Name: push_notifications_apnsdevice_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE push_notifications_apnsdevice_id_seq OWNED BY push_notifications_apnsdevice.id;
+
+
+--
+-- Name: push_notifications_gcmdevice; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE push_notifications_gcmdevice (
+    id integer NOT NULL,
+    name character varying(255),
+    active boolean NOT NULL,
+    date_created timestamp with time zone,
+    device_id bigint,
+    registration_id text NOT NULL,
+    user_id integer
+);
+
+
+ALTER TABLE push_notifications_gcmdevice OWNER TO postgres;
+
+--
+-- Name: push_notifications_gcmdevice_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE push_notifications_gcmdevice_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE push_notifications_gcmdevice_id_seq OWNER TO postgres;
+
+--
+-- Name: push_notifications_gcmdevice_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE push_notifications_gcmdevice_id_seq OWNED BY push_notifications_gcmdevice.id;
+
+
+--
+-- Name: social_auth_association; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE social_auth_association (
+    id integer NOT NULL,
+    server_url character varying(255) NOT NULL,
+    handle character varying(255) NOT NULL,
+    secret character varying(255) NOT NULL,
+    issued integer NOT NULL,
+    lifetime integer NOT NULL,
+    assoc_type character varying(64) NOT NULL
+);
+
+
+ALTER TABLE social_auth_association OWNER TO postgres;
+
+--
+-- Name: social_auth_association_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE social_auth_association_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE social_auth_association_id_seq OWNER TO postgres;
+
+--
+-- Name: social_auth_association_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE social_auth_association_id_seq OWNED BY social_auth_association.id;
+
+
+--
+-- Name: social_auth_code; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE social_auth_code (
+    id integer NOT NULL,
+    email character varying(75) NOT NULL,
+    code character varying(32) NOT NULL,
+    verified boolean NOT NULL
+);
+
+
+ALTER TABLE social_auth_code OWNER TO postgres;
+
+--
+-- Name: social_auth_code_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE social_auth_code_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE social_auth_code_id_seq OWNER TO postgres;
+
+--
+-- Name: social_auth_code_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE social_auth_code_id_seq OWNED BY social_auth_code.id;
+
+
+--
+-- Name: social_auth_nonce; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE social_auth_nonce (
+    id integer NOT NULL,
+    server_url character varying(255) NOT NULL,
+    "timestamp" integer NOT NULL,
+    salt character varying(65) NOT NULL
+);
+
+
+ALTER TABLE social_auth_nonce OWNER TO postgres;
+
+--
+-- Name: social_auth_nonce_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE social_auth_nonce_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE social_auth_nonce_id_seq OWNER TO postgres;
+
+--
+-- Name: social_auth_nonce_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE social_auth_nonce_id_seq OWNED BY social_auth_nonce.id;
+
+
+--
+-- Name: social_auth_usersocialauth; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE social_auth_usersocialauth (
+    id integer NOT NULL,
+    provider character varying(32) NOT NULL,
+    uid character varying(255) NOT NULL,
+    extra_data text NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE social_auth_usersocialauth OWNER TO postgres;
+
+--
+-- Name: social_auth_usersocialauth_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE social_auth_usersocialauth_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE social_auth_usersocialauth_id_seq OWNER TO postgres;
+
+--
+-- Name: social_auth_usersocialauth_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE social_auth_usersocialauth_id_seq OWNED BY social_auth_usersocialauth.id;
+
+
+--
+-- Name: user_properties; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE user_properties (
+    id integer NOT NULL,
+    key character varying(255) NOT NULL,
+    value character varying(255) NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE user_properties OWNER TO postgres;
+
+--
+-- Name: user_properties_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_properties_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_properties_id_seq OWNER TO postgres;
+
+--
+-- Name: user_properties_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE user_properties_id_seq OWNED BY user_properties.id;
+
+
+--
+-- Name: user_reset_password; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE user_reset_password (
+    id integer NOT NULL,
+    is_valid_key boolean NOT NULL,
+    key character varying(40) NOT NULL,
+    key_expires timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE user_reset_password OWNER TO postgres;
+
+--
+-- Name: user_reset_password_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_reset_password_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_reset_password_id_seq OWNER TO postgres;
+
+--
+-- Name: user_reset_password_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE user_reset_password_id_seq OWNED BY user_reset_password.id;
+
+
+--
+-- Name: user_verification; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE user_verification (
+    id integer NOT NULL,
+    activation_key character varying(40) NOT NULL,
+    key_expires timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE user_verification OWNER TO postgres;
+
+--
+-- Name: user_verification_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE user_verification_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_verification_id_seq OWNER TO postgres;
+
+--
+-- Name: user_verification_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE user_verification_id_seq OWNED BY user_verification.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone NOT NULL,
+    email character varying(255) NOT NULL,
+    first_name character varying(255),
+    last_name character varying(255),
+    date_of_birth date,
+    company character varying(200),
+    height double precision,
+    weight double precision,
+    gender character varying(6),
+    profile_image character varying(100),
+    is_active boolean NOT NULL,
+    is_admin boolean NOT NULL,
+    is_verify boolean NOT NULL,
+    is_accept boolean NOT NULL,
+    cubii_updates boolean NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL,
+    user_type character varying(8),
+    language character varying(10) NOT NULL,
+    is_searchable boolean NOT NULL,
+    facebook_id character varying(255),
+    fb_profile_link character varying(255),
+    facebook_token character varying(255),
+    city character varying(200),
+    country character varying(200),
+    postal_code integer,
+    state character varying(200),
+    group_notifications boolean NOT NULL
+);
+
+
+ALTER TABLE users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: weeklytable; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE weeklytable (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    rotations integer NOT NULL,
+    calories integer NOT NULL,
+    distance double precision NOT NULL,
+    year integer NOT NULL,
+    week integer NOT NULL,
+    year_week integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE weeklytable OWNER TO postgres;
+
+--
+-- Name: weeklytable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE weeklytable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE weeklytable_id_seq OWNER TO postgres;
+
+--
+-- Name: weeklytable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE weeklytable_id_seq OWNED BY weeklytable.id;
+
+
+--
+-- Name: workouts; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE workouts (
+    id integer NOT NULL,
+    rotations integer NOT NULL,
+    calories integer NOT NULL,
+    distance double precision NOT NULL,
+    start_time timestamp with time zone NOT NULL,
+    end_time timestamp with time zone NOT NULL,
+    timezone character varying(100) NOT NULL,
+    duration integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    user_id integer NOT NULL
+);
+
+
+ALTER TABLE workouts OWNER TO postgres;
+
+--
+-- Name: workouts_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE workouts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE workouts_id_seq OWNER TO postgres;
+
+--
+-- Name: workouts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE workouts_id_seq OWNED BY workouts.id;
+
+
+--
+-- Name: yearlytable; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE yearlytable (
+    id integer NOT NULL,
+    user_id integer NOT NULL,
+    rotations integer NOT NULL,
+    calories integer NOT NULL,
+    distance double precision NOT NULL,
+    year integer NOT NULL,
+    created timestamp with time zone NOT NULL,
+    modified timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE yearlytable OWNER TO postgres;
+
+--
+-- Name: yearlytable_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE yearlytable_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE yearlytable_id_seq OWNER TO postgres;
+
+--
+-- Name: yearlytable_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE yearlytable_id_seq OWNED BY yearlytable.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY api_aggregations ALTER COLUMN id SET DEFAULT nextval('api_aggregations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('auth_group_permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permission_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY celery_taskmeta ALTER COLUMN id SET DEFAULT nextval('celery_taskmeta_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY celery_tasksetmeta ALTER COLUMN id SET DEFAULT nextval('celery_tasksetmeta_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY dailytable ALTER COLUMN id SET DEFAULT nextval('dailytable_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_admin_log_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django_content_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_migrations ALTER COLUMN id SET DEFAULT nextval('django_migrations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_crontabschedule ALTER COLUMN id SET DEFAULT nextval('djcelery_crontabschedule_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_intervalschedule ALTER COLUMN id SET DEFAULT nextval('djcelery_intervalschedule_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_periodictask ALTER COLUMN id SET DEFAULT nextval('djcelery_periodictask_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_taskstate ALTER COLUMN id SET DEFAULT nextval('djcelery_taskstate_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_workerstate ALTER COLUMN id SET DEFAULT nextval('djcelery_workerstate_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY goal ALTER COLUMN id SET DEFAULT nextval('goal_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY goal_progress ALTER COLUMN id SET DEFAULT nextval('goal_progress_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY goal_type ALTER COLUMN id SET DEFAULT nextval('goal_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY group_members ALTER COLUMN id SET DEFAULT nextval('group_members_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY groups ALTER COLUMN id SET DEFAULT nextval('groups_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY hourlytable ALTER COLUMN id SET DEFAULT nextval('hourlytable_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY monthlytable ALTER COLUMN id SET DEFAULT nextval('monthlytable_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY push_notifications_apnsdevice ALTER COLUMN id SET DEFAULT nextval('push_notifications_apnsdevice_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY push_notifications_gcmdevice ALTER COLUMN id SET DEFAULT nextval('push_notifications_gcmdevice_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY social_auth_association ALTER COLUMN id SET DEFAULT nextval('social_auth_association_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY social_auth_code ALTER COLUMN id SET DEFAULT nextval('social_auth_code_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY social_auth_nonce ALTER COLUMN id SET DEFAULT nextval('social_auth_nonce_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY social_auth_usersocialauth ALTER COLUMN id SET DEFAULT nextval('social_auth_usersocialauth_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_properties ALTER COLUMN id SET DEFAULT nextval('user_properties_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_reset_password ALTER COLUMN id SET DEFAULT nextval('user_reset_password_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_verification ALTER COLUMN id SET DEFAULT nextval('user_verification_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY weeklytable ALTER COLUMN id SET DEFAULT nextval('weeklytable_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY workouts ALTER COLUMN id SET DEFAULT nextval('workouts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY yearlytable ALTER COLUMN id SET DEFAULT nextval('yearlytable_id_seq'::regclass);
+
+
+--
+-- Name: api_aggregations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY api_aggregations
+    ADD CONSTRAINT api_aggregations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_key UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_key UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: authtoken_token_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY authtoken_token
+    ADD CONSTRAINT authtoken_token_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: authtoken_token_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: celery_taskmeta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_taskmeta
+    ADD CONSTRAINT celery_taskmeta_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: celery_taskmeta_task_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_taskmeta
+    ADD CONSTRAINT celery_taskmeta_task_id_key UNIQUE (task_id);
+
+
+--
+-- Name: celery_tasksetmeta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_tasksetmeta
+    ADD CONSTRAINT celery_tasksetmeta_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: celery_tasksetmeta_taskset_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY celery_tasksetmeta
+    ADD CONSTRAINT celery_tasksetmeta_taskset_id_key UNIQUE (taskset_id);
+
+
+--
+-- Name: dailytable_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY dailytable
+    ADD CONSTRAINT dailytable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type_app_label_45f3b1d93ec8c61c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_app_label_45f3b1d93ec8c61c_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: djcelery_crontabschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_crontabschedule
+    ADD CONSTRAINT djcelery_crontabschedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_intervalschedule_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_intervalschedule
+    ADD CONSTRAINT djcelery_intervalschedule_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_periodictask_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_name_key UNIQUE (name);
+
+
+--
+-- Name: djcelery_periodictask_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_periodictasks_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_periodictasks
+    ADD CONSTRAINT djcelery_periodictasks_pkey PRIMARY KEY (ident);
+
+
+--
+-- Name: djcelery_taskstate_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_taskstate
+    ADD CONSTRAINT djcelery_taskstate_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: djcelery_taskstate_task_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_taskstate
+    ADD CONSTRAINT djcelery_taskstate_task_id_key UNIQUE (task_id);
+
+
+--
+-- Name: djcelery_workerstate_hostname_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_workerstate
+    ADD CONSTRAINT djcelery_workerstate_hostname_key UNIQUE (hostname);
+
+
+--
+-- Name: djcelery_workerstate_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY djcelery_workerstate
+    ADD CONSTRAINT djcelery_workerstate_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: goal_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY goal
+    ADD CONSTRAINT goal_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: goal_progress_goal_id_286b9d8136021b53_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY goal_progress
+    ADD CONSTRAINT goal_progress_goal_id_286b9d8136021b53_uniq UNIQUE (goal_id, user_id, date);
+
+
+--
+-- Name: goal_progress_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY goal_progress
+    ADD CONSTRAINT goal_progress_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: goal_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY goal_type
+    ADD CONSTRAINT goal_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: group_members_group_id_27c14f7fc6200391_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY group_members
+    ADD CONSTRAINT group_members_group_id_27c14f7fc6200391_uniq UNIQUE (group_id, user_id);
+
+
+--
+-- Name: group_members_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY group_members
+    ADD CONSTRAINT group_members_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: groups_name_11e86db33623e009_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_name_11e86db33623e009_uniq UNIQUE (name, admin_id, is_deleted);
+
+
+--
+-- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: hourlytable_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY hourlytable
+    ADD CONSTRAINT hourlytable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: monthlytable_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY monthlytable
+    ADD CONSTRAINT monthlytable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: push_notifications_apnsdevice_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY push_notifications_apnsdevice
+    ADD CONSTRAINT push_notifications_apnsdevice_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: push_notifications_apnsdevice_registration_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY push_notifications_apnsdevice
+    ADD CONSTRAINT push_notifications_apnsdevice_registration_id_key UNIQUE (registration_id);
+
+
+--
+-- Name: push_notifications_gcmdevice_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY push_notifications_gcmdevice
+    ADD CONSTRAINT push_notifications_gcmdevice_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_auth_association_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY social_auth_association
+    ADD CONSTRAINT social_auth_association_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_auth_code_email_75f27066d057e3b6_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY social_auth_code
+    ADD CONSTRAINT social_auth_code_email_75f27066d057e3b6_uniq UNIQUE (email, code);
+
+
+--
+-- Name: social_auth_code_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY social_auth_code
+    ADD CONSTRAINT social_auth_code_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_auth_nonce_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY social_auth_nonce
+    ADD CONSTRAINT social_auth_nonce_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_auth_usersocialauth_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY social_auth_usersocialauth
+    ADD CONSTRAINT social_auth_usersocialauth_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_auth_usersocialauth_provider_2f763109e2c4a1fb_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY social_auth_usersocialauth
+    ADD CONSTRAINT social_auth_usersocialauth_provider_2f763109e2c4a1fb_uniq UNIQUE (provider, uid);
+
+
+--
+-- Name: user_properties_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_properties
+    ADD CONSTRAINT user_properties_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_reset_password_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_reset_password
+    ADD CONSTRAINT user_reset_password_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_reset_password_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_reset_password
+    ADD CONSTRAINT user_reset_password_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: user_verification_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_verification
+    ADD CONSTRAINT user_verification_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_verification_user_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY user_verification
+    ADD CONSTRAINT user_verification_user_id_key UNIQUE (user_id);
+
+
+--
+-- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: weeklytable_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY weeklytable
+    ADD CONSTRAINT weeklytable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: workouts_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY workouts
+    ADD CONSTRAINT workouts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: yearlytable_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY yearlytable
+    ADD CONSTRAINT yearlytable_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group_permissions_0e939a4f; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_0e939a4f ON auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_8373b171; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_group_permissions_8373b171 ON auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_417f1b1c; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX auth_permission_417f1b1c ON auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: celery_taskmeta_hidden; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX celery_taskmeta_hidden ON celery_taskmeta USING btree (hidden);
+
+
+--
+-- Name: celery_taskmeta_task_id_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX celery_taskmeta_task_id_like ON celery_taskmeta USING btree (task_id varchar_pattern_ops);
+
+
+--
+-- Name: celery_tasksetmeta_hidden; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX celery_tasksetmeta_hidden ON celery_tasksetmeta USING btree (hidden);
+
+
+--
+-- Name: celery_tasksetmeta_taskset_id_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX celery_tasksetmeta_taskset_id_like ON celery_tasksetmeta USING btree (taskset_id varchar_pattern_ops);
+
+
+--
+-- Name: dailytable_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX dailytable_e8701ad4 ON dailytable USING btree (user_id);
+
+
+--
+-- Name: django_admin_log_417f1b1c; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_417f1b1c ON django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX django_admin_log_e8701ad4 ON django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_de54fa62; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX django_session_de54fa62 ON django_session USING btree (expire_date);
+
+
+--
+-- Name: djcelery_periodictask_crontab_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_periodictask_crontab_id ON djcelery_periodictask USING btree (crontab_id);
+
+
+--
+-- Name: djcelery_periodictask_interval_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_periodictask_interval_id ON djcelery_periodictask USING btree (interval_id);
+
+
+--
+-- Name: djcelery_periodictask_name_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_periodictask_name_like ON djcelery_periodictask USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_hidden; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_hidden ON djcelery_taskstate USING btree (hidden);
+
+
+--
+-- Name: djcelery_taskstate_name; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_name ON djcelery_taskstate USING btree (name);
+
+
+--
+-- Name: djcelery_taskstate_name_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_name_like ON djcelery_taskstate USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_state; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_state ON djcelery_taskstate USING btree (state);
+
+
+--
+-- Name: djcelery_taskstate_state_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_state_like ON djcelery_taskstate USING btree (state varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_task_id_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_task_id_like ON djcelery_taskstate USING btree (task_id varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_taskstate_tstamp; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_tstamp ON djcelery_taskstate USING btree (tstamp);
+
+
+--
+-- Name: djcelery_taskstate_worker_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_taskstate_worker_id ON djcelery_taskstate USING btree (worker_id);
+
+
+--
+-- Name: djcelery_workerstate_hostname_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_workerstate_hostname_like ON djcelery_workerstate USING btree (hostname varchar_pattern_ops);
+
+
+--
+-- Name: djcelery_workerstate_last_heartbeat; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX djcelery_workerstate_last_heartbeat ON djcelery_workerstate USING btree (last_heartbeat);
+
+
+--
+-- Name: goal_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX goal_e8701ad4 ON goal USING btree (user_id);
+
+
+--
+-- Name: goal_ff99524a; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX goal_ff99524a ON goal USING btree (goal_type_id);
+
+
+--
+-- Name: goal_progress_b730706b; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX goal_progress_b730706b ON goal_progress USING btree (goal_id);
+
+
+--
+-- Name: goal_progress_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX goal_progress_e8701ad4 ON goal_progress USING btree (user_id);
+
+
+--
+-- Name: group_members_0e939a4f; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX group_members_0e939a4f ON group_members USING btree (group_id);
+
+
+--
+-- Name: group_members_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX group_members_e8701ad4 ON group_members USING btree (user_id);
+
+
+--
+-- Name: groups_156f41ed; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX groups_156f41ed ON groups USING btree (admin_id);
+
+
+--
+-- Name: hourlytable_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX hourlytable_e8701ad4 ON hourlytable USING btree (user_id);
+
+
+--
+-- Name: monthlytable_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX monthlytable_e8701ad4 ON monthlytable USING btree (user_id);
+
+
+--
+-- Name: push_notifications_apnsdevice_device_id_16658df0e047dc0d_uniq; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX push_notifications_apnsdevice_device_id_16658df0e047dc0d_uniq ON push_notifications_apnsdevice USING btree (device_id);
+
+
+--
+-- Name: push_notifications_apnsdevice_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX push_notifications_apnsdevice_e8701ad4 ON push_notifications_apnsdevice USING btree (user_id);
+
+
+--
+-- Name: push_notifications_gcmdevice_device_id_748cccd89a1388d7_uniq; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX push_notifications_gcmdevice_device_id_748cccd89a1388d7_uniq ON push_notifications_gcmdevice USING btree (device_id);
+
+
+--
+-- Name: push_notifications_gcmdevice_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX push_notifications_gcmdevice_e8701ad4 ON push_notifications_gcmdevice USING btree (user_id);
+
+
+--
+-- Name: social_auth_code_c1336794; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX social_auth_code_c1336794 ON social_auth_code USING btree (code);
+
+
+--
+-- Name: social_auth_usersocialauth_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX social_auth_usersocialauth_e8701ad4 ON social_auth_usersocialauth USING btree (user_id);
+
+
+--
+-- Name: user_properties_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX user_properties_e8701ad4 ON user_properties USING btree (user_id);
+
+
+--
+-- Name: weeklytable_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX weeklytable_e8701ad4 ON weeklytable USING btree (user_id);
+
+
+--
+-- Name: workouts_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX workouts_e8701ad4 ON workouts USING btree (user_id);
+
+
+--
+-- Name: yearlytable_e8701ad4; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX yearlytable_e8701ad4 ON yearlytable USING btree (user_id);
+
+
+--
+-- Name: auth_content_type_id_508cf46651277a81_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_permission
+    ADD CONSTRAINT auth_content_type_id_508cf46651277a81_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_group_id_689710a9a73b7457_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY auth_group_permissions
+    ADD CONSTRAINT auth_group_permission_id_1f49ccbbdc69d2fc_fk_auth_permission_id FOREIGN KEY (permission_id) REFERENCES auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: authtoken_token_user_id_1d10c57f535fb363_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY authtoken_token
+    ADD CONSTRAINT authtoken_token_user_id_1d10c57f535fb363_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djan_content_type_id_697914295151027a_fk_django_content_type_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT djan_content_type_id_697914295151027a_fk_django_content_type_id FOREIGN KEY (content_type_id) REFERENCES django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log_user_id_52fdd58701c5f563_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_52fdd58701c5f563_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djcelery_periodictask_crontab_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_crontab_id_fkey FOREIGN KEY (crontab_id) REFERENCES djcelery_crontabschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djcelery_periodictask_interval_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_periodictask
+    ADD CONSTRAINT djcelery_periodictask_interval_id_fkey FOREIGN KEY (interval_id) REFERENCES djcelery_intervalschedule(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: djcelery_taskstate_worker_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY djcelery_taskstate
+    ADD CONSTRAINT djcelery_taskstate_worker_id_fkey FOREIGN KEY (worker_id) REFERENCES djcelery_workerstate(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: goal_goal_type_id_484733c16138d67e_fk_goal_type_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY goal
+    ADD CONSTRAINT goal_goal_type_id_484733c16138d67e_fk_goal_type_id FOREIGN KEY (goal_type_id) REFERENCES goal_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: goal_progress_goal_id_24f59fbf99efae71_fk_goal_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY goal_progress
+    ADD CONSTRAINT goal_progress_goal_id_24f59fbf99efae71_fk_goal_id FOREIGN KEY (goal_id) REFERENCES goal(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: goal_progress_user_id_4142cf6397888ae1_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY goal_progress
+    ADD CONSTRAINT goal_progress_user_id_4142cf6397888ae1_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: goal_user_id_75a472d503ef58fe_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY goal
+    ADD CONSTRAINT goal_user_id_75a472d503ef58fe_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_members_group_id_68339c16a8a3af66_fk_groups_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY group_members
+    ADD CONSTRAINT group_members_group_id_68339c16a8a3af66_fk_groups_id FOREIGN KEY (group_id) REFERENCES groups(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: group_members_user_id_67dbbfbe6d75df_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY group_members
+    ADD CONSTRAINT group_members_user_id_67dbbfbe6d75df_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: groups_admin_id_4fb02c3c3be45a74_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY groups
+    ADD CONSTRAINT groups_admin_id_4fb02c3c3be45a74_fk_users_id FOREIGN KEY (admin_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: push_notifications_apnsdev_user_id_7b89caf312344e0e_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY push_notifications_apnsdevice
+    ADD CONSTRAINT push_notifications_apnsdev_user_id_7b89caf312344e0e_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: push_notifications_gcmdevi_user_id_6b327e4f7b1a740a_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY push_notifications_gcmdevice
+    ADD CONSTRAINT push_notifications_gcmdevi_user_id_6b327e4f7b1a740a_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: social_auth_usersocialauth_user_id_193b2d80880502b2_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY social_auth_usersocialauth
+    ADD CONSTRAINT social_auth_usersocialauth_user_id_193b2d80880502b2_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_properties_user_id_1b3690ca2f67c54d_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_properties
+    ADD CONSTRAINT user_properties_user_id_1b3690ca2f67c54d_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_reset_password_user_id_48050c5b13c2f23b_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_reset_password
+    ADD CONSTRAINT user_reset_password_user_id_48050c5b13c2f23b_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: user_verification_user_id_6dfa7a4a3de40c55_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY user_verification
+    ADD CONSTRAINT user_verification_user_id_6dfa7a4a3de40c55_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: workouts_user_id_2333b51da2568323_fk_users_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY workouts
+    ADD CONSTRAINT workouts_user_id_2333b51da2568323_fk_users_id FOREIGN KEY (user_id) REFERENCES users(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
